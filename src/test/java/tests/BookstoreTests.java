@@ -5,6 +5,7 @@ import io.restassured.RestAssured;
 
 import static io.restassured.RestAssured.get;
 import static io.restassured.RestAssured.given;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static listener.CustomAllureListener.withCustomTemplates;
 import static org.hamcrest.Matchers.*;
 
@@ -128,6 +129,95 @@ public class BookstoreTests {
                 .log().status()    // логирование ответа
                 .log().body()
                 .statusCode(200)
+                // далее идут проверки
+                // проверим что вкладка "books" имеет размер больше чем 0
+                .body("status", is("Success"))
+                .body("result", is("User authorized successfully."))
+                .body("token.size()", greaterThan(10));
+    }
+
+    // получаем токен
+    @Test
+    void getTokenTest() {
+        String data = "{ \"userName\": \"alex\", " +
+                "\"password\": \"asdsad#frew_DFS2\" }";
+
+        String token =
+        given()
+                .contentType(ContentType.JSON)
+                .body(data)
+                .log().uri()    // логирование URI
+                .log().method()
+                .log().body()
+                .when()
+                .post("/Account/v1/GenerateToken")
+                .then()
+                .log().status()    // логирование ответа
+                .log().body()
+                .statusCode(200)
+                // далее идут проверки
+                // проверим что вкладка "books" имеет размер больше чем 0
+                .body("status", is("Success"))
+                .body("result", is("User authorized successfully."))
+                .extract().path("token");
+
+        System.out.println("Token: " + token);
+    }
+
+    /* добавляем проверку на соответствие JSON схеме, схему вставили в файл:
+       resources/schemas/GenerateToken_response_scheme.json
+       Схему получили с использованием сайта https://www.jsonschema.net/home,
+       отправив запрос который взяли из консоли
+     */
+    @Test
+    void generateTokenJsonSchemeTest() {
+        String data = "{ \"userName\": \"alex\", " +
+                "\"password\": \"asdsad#frew_DFS2\" }";
+        // фильтр RestAssured можно перенести в @BeforeAll и он будет там вообще все перехватывать
+        // RestAssured.filters(new AllureRestAssured()); move to @BeforeAll логирование в Allure
+        given()
+                .filter(withCustomTemplates())    // можем так индивидуально к запросу фильтр прописать
+                .contentType(ContentType.JSON)
+                .body(data)
+                .log().uri()    // логирование URI
+                .log().method()
+                .log().body()
+                .when()
+                .post("/Account/v1/GenerateToken")
+                .then()
+                .log().status()    // логирование ответа
+                .log().body()
+                .statusCode(200)
+                // проверим на соответствие JSON схеме
+                .body(matchesJsonSchemaInClasspath("schemas/GenerateToken_response_scheme.json"))
+                // далее идут проверки
+                // проверим что вкладка "books" имеет размер больше чем 0
+                .body("status", is("Success"))
+                .body("result", is("User authorized successfully."))
+                .body("token.size()", greaterThan(10));
+    }
+
+    @Test
+    void generateTokenWithModelTest() {
+        String data = "{ \"userName\": \"alex\", " +
+                "\"password\": \"asdsad#frew_DFS2\" }";
+        // фильтр RestAssured можно перенести в @BeforeAll и он будет там вообще все перехватывать
+        // RestAssured.filters(new AllureRestAssured()); move to @BeforeAll логирование в Allure
+        given()
+                .filter(withCustomTemplates())    // можем так индивидуально к запросу фильтр прописать
+                .contentType(ContentType.JSON)
+                .body(data)
+                .log().uri()    // логирование URI
+                .log().method()
+                .log().body()
+                .when()
+                .post("/Account/v1/GenerateToken")
+                .then()
+                .log().status()    // логирование ответа
+                .log().body()
+                .statusCode(200)
+                // проверим на соответствие JSON схеме
+                .body(matchesJsonSchemaInClasspath("schemas/GenerateToken_response_scheme.json"))
                 // далее идут проверки
                 // проверим что вкладка "books" имеет размер больше чем 0
                 .body("status", is("Success"))

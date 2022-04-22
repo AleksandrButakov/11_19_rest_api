@@ -7,8 +7,8 @@
   "default": {},
   "examples": [
     {
-      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6ImFsZXgiLCJwYXNzd29yZCI6ImFzZHNhZCNmcmV3X0RGUzIiLCJpYXQiOjE2NDk5NTkzMDR9.OfyU6e8Dt7FHQwhWnILeCZ9P9o81T3oc_FZNsVqkeW8",
-      "expires": "2022-04-21T18:01:44.152Z",
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6ImFsZXgiLCJwYXNzd29yZCI6ImFzZHNhZCNmcmV3X0RGUzIiLCJpYXQiOjE2NTA2MDc3ODV9.AUz5JEERKcJr82MtG8mup4eUwTHkll8yxFTrlIK2bzo",
+      "expires": "2022-04-29T06:09:45.302Z",
       "status": "Success",
       "result": "User authorized successfully."
     }
@@ -27,7 +27,7 @@
       "description": "An explanation about the purpose of this instance.",
       "default": "",
       "examples": [
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6ImFsZXgiLCJwYXNzd29yZCI6ImFzZHNhZCNmcmV3X0RGUzIiLCJpYXQiOjE2NDk5NTkzMDR9.OfyU6e8Dt7FHQwhWnILeCZ9P9o81T3oc_FZNsVqkeW8"
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6ImFsZXgiLCJwYXNzd29yZCI6ImFzZHNhZCNmcmV3X0RGUzIiLCJpYXQiOjE2NTA2MDc3ODV9.AUz5JEERKcJr82MtG8mup4eUwTHkll8yxFTrlIK2bzo"
       ]
     },
     "expires": {
@@ -37,7 +37,7 @@
       "description": "An explanation about the purpose of this instance.",
       "default": "",
       "examples": [
-        "2022-04-21T18:01:44.152Z"
+        "2022-04-29T06:09:45.302Z"
       ]
     },
     "status": {
