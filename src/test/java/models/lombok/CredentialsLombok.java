@@ -1,6 +1,6 @@
-package models;
+package models.lombok;
 
-public class Credentials {
+public class CredentialsLombok {
     /*
     Request URI:	https://demoqa.com/Account/v1/GenerateToken
     Request method:	POST
