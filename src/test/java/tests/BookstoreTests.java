@@ -13,6 +13,8 @@ import static org.hamcrest.Matchers.*;
 import io.restassured.http.ContentType;
 import models.Credentials;
 import models.GenerateTokenResponse;
+import models.lombok.CredentialsLombok;
+import models.lombok.GenerateTokenResponseLombok;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -224,6 +226,43 @@ public class BookstoreTests {
                         // проверим на соответствие JSON схеме
                         .body(matchesJsonSchemaInClasspath("schemas/GenerateToken_response_scheme.json"))
                         .extract().as(GenerateTokenResponse.class);
+
+        assertThat(tokenResponse.getStatus()).isEqualTo("Success");
+        assertThat(tokenResponse.getResult()).isEqualTo("User authorized successfully.");
+        // длина не меньше 10 символов
+        assertThat(tokenResponse.getExpires()).hasSizeGreaterThan(10);
+        // длина не меньше 10 символов и начинается с символов eyJ
+        assertThat(tokenResponse.getToken()).hasSizeGreaterThan(10).startsWith("eyJ");
+
+    }
+
+    /* библиотека lombok позволяет отказаться от геттеров и сеттеров в классах Credentials and
+       GenerateTokenResponse которые приходилось использовать в предыдущих примерах
+     */
+    @Test
+    void generateTokenWithLombokTest() {
+        CredentialsLombok credentials = new CredentialsLombok();
+
+        credentials.setUserName("alex");
+        credentials.setPassword("asdsad#frew_DFS2");
+
+        GenerateTokenResponseLombok tokenResponse =
+                given()
+                        .filter(withCustomTemplates())    // можем так индивидуально к запросу фильтр прописать
+                        .contentType(ContentType.JSON)
+                        .body(credentials)
+                        .log().uri()    // логирование URI
+                        .log().method()
+                        .log().body()
+                        .when()
+                        .post("/Account/v1/GenerateToken")
+                        .then()
+                        .log().status()    // логирование ответа
+                        .log().body()
+                        .statusCode(200)
+                        // проверим на соответствие JSON схеме
+                        .body(matchesJsonSchemaInClasspath("schemas/GenerateToken_response_scheme.json"))
+                        .extract().as(GenerateTokenResponseLombok.class);
 
         assertThat(tokenResponse.getStatus()).isEqualTo("Success");
         assertThat(tokenResponse.getResult()).isEqualTo("User authorized successfully.");
