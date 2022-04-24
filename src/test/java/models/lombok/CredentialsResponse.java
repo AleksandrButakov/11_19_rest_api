@@ -3,7 +3,7 @@ package models.lombok;
 import lombok.Data;
 
 @Data
-public class HomeworkResponse {
+public class CredentialsResponse {
 
     private long id;
     private int petId;

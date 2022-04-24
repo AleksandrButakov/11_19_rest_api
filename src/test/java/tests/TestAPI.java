@@ -3,8 +3,8 @@ package tests;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import models.lombok.Homework;
-import models.lombok.HomeworkResponse;
+import models.lombok.Credentials;
+import models.lombok.CredentialsResponse;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -48,7 +48,7 @@ public class TestAPI {
                 "\"complete\": true }";
          */
 
-        Homework credentials = new Homework();
+        Credentials credentials = new Credentials();
         credentials.setId(0);
         credentials.setPetId(0);
         credentials.setQuantity(0);
@@ -56,7 +56,7 @@ public class TestAPI {
         credentials.setStatus("placed");
         credentials.setComplete(true);
 
-        HomeworkResponse homeworkResponse =
+        CredentialsResponse credentialsResponse =
                 given()
                         // .filter(new AllureRestAssured())
                         .filter(withCustomTemplates())
@@ -76,7 +76,7 @@ public class TestAPI {
                         .statusCode(200)
                         .body(matchesJsonSchemaInClasspath("schemas/Generate_response_scheme.json"))
                         //.body("status", is("placed"));
-                        .extract().as(HomeworkResponse.class);
+                        .extract().as(CredentialsResponse.class);
 
         /*
             "id": 9222968140497185134,
@@ -86,9 +86,9 @@ public class TestAPI {
             "status": "placed",
             "complete": true
         */
-        assertThat(homeworkResponse.getId()).isNotZero();
-        assertThat(homeworkResponse.getShipDate()).hasSizeGreaterThan(12);
-        assertThat(homeworkResponse.getStatus()).isEqualTo("placed");
+        assertThat(credentialsResponse.getId()).isNotZero();
+        assertThat(credentialsResponse.getShipDate()).hasSizeGreaterThan(12);
+        assertThat(credentialsResponse.getStatus()).isEqualTo("placed");
     }
 
 }
