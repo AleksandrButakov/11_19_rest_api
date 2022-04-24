@@ -170,7 +170,7 @@ public class BookstoreTests {
     }
 
     /* добавляем проверку на соответствие JSON схеме, схему вставили в файл:
-       resources/schemas/GenerateToken_response_scheme.json
+       resources/schemas/Generate_response_scheme.json
        Схему получили с использованием сайта https://www.jsonschema.net/home,
        отправив запрос который взяли из консоли
      */
@@ -194,7 +194,7 @@ public class BookstoreTests {
                 .log().body()
                 .statusCode(200)
                 // проверим на соответствие JSON схеме
-                .body(matchesJsonSchemaInClasspath("schemas/GenerateToken_response_scheme.json"))
+                .body(matchesJsonSchemaInClasspath("schemas/Generate_response_scheme.json"))
                 // далее идут проверки
                 // проверим что вкладка "books" имеет размер больше чем 0
                 .body("status", is("Success"))
@@ -224,7 +224,7 @@ public class BookstoreTests {
                         .log().body()
                         .statusCode(200)
                         // проверим на соответствие JSON схеме
-                        .body(matchesJsonSchemaInClasspath("schemas/GenerateToken_response_scheme.json"))
+                        .body(matchesJsonSchemaInClasspath("schemas/Generate_response_scheme.json"))
                         .extract().as(GenerateTokenResponse.class);
 
         assertThat(tokenResponse.getStatus()).isEqualTo("Success");
@@ -261,7 +261,7 @@ public class BookstoreTests {
                         .log().body()
                         .statusCode(200)
                         // проверим на соответствие JSON схеме
-                        .body(matchesJsonSchemaInClasspath("schemas/GenerateToken_response_scheme.json"))
+                        .body(matchesJsonSchemaInClasspath("schemas/Generate_response_scheme.json"))
                         .extract().as(GenerateTokenResponseLombok.class);
 
         assertThat(tokenResponse.getStatus()).isEqualTo("Success");
