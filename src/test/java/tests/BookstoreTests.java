@@ -270,7 +270,6 @@ public class BookstoreTests {
         assertThat(tokenResponse.getExpires()).hasSizeGreaterThan(10);
         // длина не меньше 10 символов и начинается с символов eyJ
         assertThat(tokenResponse.getToken()).hasSizeGreaterThan(10).startsWith("eyJ");
-
     }
 
 }
